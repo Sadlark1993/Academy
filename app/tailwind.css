@@ -15,14 +15,17 @@
 
 @layer components {
   .add-step-bg {
-    @apply w-screen h-screen bg-[#110c22] hidden left-0 top-0 bg-opacity-65 fixed justify-center items-center;
+    @apply h-[140vh] bg-[#110c22] w-0 left-0 top-[-20vh] bg-opacity-0 opacity-0 fixed justify-center items-center flex
+    transition duration-[400ms] ease-in-out overflow-hidden -translate-y-8;
   }
 
   .active {
-    @apply flex;
+    @apply flex bg-opacity-65 w-screen opacity-100 translate-y-0;
   }
 
-  /* .add-step-modal {
-    @apply w-[680px] bg-white p-12;
-  } */
+  .modal-input {
+    @apply mb-4 rounded-xl bg-[#F8F8F8] border-[#ECECED] border py-3 px-4 text-[#110c22] outline-[#E2DCFF] outline-offset-2
+      focus-visible:border-[#7357FF] focus-visible:outline-8;
+  }
+
 }
