@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'GeneralSans';
+  src: url('./fonts/GeneralSans-Variable.ttf') format('truetype');
+}
+
+@layer base {
+  body {
+    @apply bg-[#f8f8f8]
+  }
+}
+
+@layer components {
+  .add-step-bg {
+    @apply w-screen h-screen bg-[#110c22] hidden absolute left-0 top-0 opacity-65;
+  }
+
+  .active {
+    @apply flex;
+  }
+
+  /* .add-step-modal {
+    @apply w-[680px] bg-white p-12;
+  } */
+}
