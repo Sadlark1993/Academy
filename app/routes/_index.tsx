@@ -1,5 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 
+//here we set all the meta tags
 export const meta: MetaFunction = () => {
   return [
     { title: "New Remix App" },
