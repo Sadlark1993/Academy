@@ -9,13 +9,13 @@
 
 @layer base {
   body {
-    @apply bg-[#f8f8f8]
+    @apply bg-[#f8f8f8] font-[GeneralSans]
   }
 }
 
 @layer components {
   .add-step-bg {
-    @apply w-screen h-screen bg-[#110c22] hidden absolute left-0 top-0 opacity-65;
+    @apply w-screen h-screen bg-[#110c22] hidden left-0 top-0 bg-opacity-65 fixed justify-center items-center;
   }
 
   .active {
