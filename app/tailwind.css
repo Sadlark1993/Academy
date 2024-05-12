@@ -27,5 +27,4 @@
     @apply mb-4 rounded-xl bg-[#F8F8F8] border-[#ECECED] border py-3 px-4 text-[#110c22] outline-[#E2DCFF] outline-offset-2
       focus-visible:border-[#7357FF] focus-visible:outline-8;
   }
-
 }

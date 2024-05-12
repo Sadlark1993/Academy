@@ -8,12 +8,19 @@ import {
 } from "@remix-run/react";
 
 import stylesheet from "~/tailwind.css?url";
+//import neo4j from './consumer/neo4j'
+//import { useEffect } from "react";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+
+/*   useEffect(()=>{
+    neo4j.init();
+  },[]); */
+  
   return (
     <html lang="en">
       <head>
