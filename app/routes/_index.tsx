@@ -1,4 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
+import { useNavigate } from "@remix-run/react";
+import { useEffect } from "react";
 
 //here we set all the meta tags
 export const meta: MetaFunction = () => {
@@ -9,6 +11,13 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  const navigate = useNavigate();
+
+  //redirecting to what really metters
+  useEffect(()=>{
+    navigate('/explore/trail-1');
+  });
+
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
       <h1>Welcome to Remix</h1>

@@ -62,34 +62,49 @@ export default class Neo4j {
     //records.forEach((record) => console.log(record.get("name")));
   };
 
-  //saves the step if the trail exist
+  //saves the step if the trail exists and step does't exists
   static saveStep = async (trail: string, step: { id: string; title: string; content: string }) => {
-    if (!this.driver) await this.conect();
+    if (!this.driver) await this.init();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { records, summary, keys } = await this.driver.executeQuery(
-      `
+    try {
+      let response = await this.driver.executeQuery(`MATCH (s:Step {id: $id}) return s`, { id: step.id }, { database: "neo4j" });
+      if (response.records.length) {
+        console.log("achou");
+        console.log(response.records);
+        return false;
+      }
+
+      response = await this.driver.executeQuery(
+        `
       MATCH (t:Trail {id: $trail})
-      MERGE (s:Step {id: $id})
+      MERGE (s2:Step {id: $id})
       ON CREATE
-      SET s.title = $title, s.content = $content
-      MERGE (t)-[r:HAS]->(s)
-      RETURN t, r, s
+      SET s2.title = $title, s2.content = $content
+      MERGE (t)-[r:HAS]->(s2)
+      RETURN t, r, s2
       `,
-      { trail: trail, id: step.id, title: step.title, content: step.content },
-      { database: "neo4j" }
-    );
+        { trail: trail, id: step.id, title: step.title, content: step.content },
+        { database: "neo4j" }
+      );
 
-    // Summary information
-    console.log(`>> The query ${summary.query.text} ` + `returned ${records.length} records ` + `in ${summary.resultAvailableAfter} ms.`);
+      console.log(response.records);
+      // Summary information
+      console.log(`returned ${response.records.length} records ` + `in ${response.summary.resultAvailableAfter} ms.`);
 
-    // Loop through results and do something with them
-    console.log(">> Results");
-    records.forEach((record) => console.log(record.values));
-    return records[0];
+      // Loop through results and do something with them
+      //console.log(">> Results");
+      //records.forEach((record) => console.log(record.values));
+
+      //if already exists, alert.
+      return response.records;
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
   };
 
   static getStepsByTrail = async (trail: string) => {
-    if (!this.driver) await this.conect();
+    if (!this.driver) await this.init();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { records, summary, keys } = await this.driver.executeQuery(
       `
@@ -114,11 +129,13 @@ export default class Neo4j {
   };
 
   static saveTrail = async (trail: { id: string; title: string }) => {
-    if (!this.driver) await this.conect();
+    if (!this.driver) await this.init();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { records, summary, keys } = await this.driver.executeQuery(
       `
+      MATCH (tm:Theme)
       MERGE (t:Trail {id: '${trail.id}', title: '${trail.title}'})
+      MERGE (tm)-[:HAS]->(t)
       RETURN t
       `,
       {},
@@ -135,7 +152,7 @@ export default class Neo4j {
   };
 
   static getTrail = async (trail: string) => {
-    if (!this.driver) await this.conect();
+    if (!this.driver) await this.init();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { records, summary, keys } = await this.driver.executeQuery(
       `

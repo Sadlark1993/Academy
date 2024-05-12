@@ -17,7 +17,6 @@ const Trail = () :ReactNode => {
   const [title, setTitle] = useState('');
   const [newTrail, setNewTrail] = useState(false);
   const {trail} = useParams();
-  const titleRef = useRef();
 
   useEffect(()=>{
   if(trail){
