@@ -2,6 +2,7 @@ import * as neo4j from "neo4j-driver";
 
 export default class Neo4j {
   static driver: neo4j.Driver;
+  static ready = false;
 
   static conect = async () => {
     // URI examples: 'neo4j://localhost', 'neo4j+s://xxx.databases.neo4j.io'
@@ -53,6 +54,7 @@ export default class Neo4j {
       {},
       { database: "neo4j" }
     );
+    this.ready = true;
 
     // Summary information
     //console.log(`>> The query ${summary.query.text} ` + `returned ${records.length} records ` + `in ${summary.resultAvailableAfter} ms.`);
@@ -64,7 +66,7 @@ export default class Neo4j {
 
   //saves the step if the trail exists and step does't exists
   static saveStep = async (trail: string, step: { id: string; title: string; content: string }) => {
-    if (!this.driver) await this.init();
+    if (!this.driver || !this.ready) await this.init();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     try {
       let response = await this.driver.executeQuery(`MATCH (s:Step {id: $id}) return s`, { id: step.id }, { database: "neo4j" });
@@ -104,7 +106,7 @@ export default class Neo4j {
   };
 
   static getStepsByTrail = async (trail: string) => {
-    if (!this.driver) await this.init();
+    if (!this.driver || !this.ready) await this.init();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { records, summary, keys } = await this.driver.executeQuery(
       `
@@ -152,7 +154,7 @@ export default class Neo4j {
   };
 
   static getTrail = async (trail: string) => {
-    if (!this.driver) await this.init();
+    if (!this.driver || !this.ready) await this.init();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { records, summary, keys } = await this.driver.executeQuery(
       `
