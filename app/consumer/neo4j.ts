@@ -5,9 +5,9 @@ export default class Neo4j {
 
   static conect = async () => {
     // URI examples: 'neo4j://localhost', 'neo4j+s://xxx.databases.neo4j.io'
-    const URI = "neo4j+s://54604a0d.databases.neo4j.io";
-    const USER = "neo4j";
-    const PASSWORD = "";
+    const URI = import.meta.env.VITE_URI;
+    const USER = import.meta.env.VITE_USER;
+    const PASSWORD = import.meta.env.VITE_PASSWORD;
 
     try {
       this.driver = neo4j.driver(URI, neo4j.auth.basic(USER, PASSWORD));
