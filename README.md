@@ -1,36 +1,15 @@
-# Welcome to Remix + Vite!
+# Cognittron Teste de Programação
 
-📖 See the [Remix docs](https://remix.run/docs) and the [Remix Vite docs](https://remix.run/docs/en/main/guides/vite) for details on supported features.
+Este é o repositório para o teste de programação da Cognita, relacionado à vaga para desenvolvedor na aplicação Cognittron.
 
-## Development
+## IMPORTANTE!
 
-Run the Vite dev server:
+- PARA QUE A APLICAÇÃO FUNCIONE, CONFIGURE AS VARIÁVEIS NO ARQUIVO .env, QUE ESTÁ NO ROOT DO PROJETO.
 
-```shellscript
-npm run dev
-```
+## Tarefas
 
-## Deployment
-
-First, build your app for production:
-
-```sh
-npm run build
-```
-
-Then run the app in production mode:
-
-```sh
-npm start
-```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-- `build/server`
-- `build/client`
+- Implementação da rota "/explore/<trailId>" no Remix, exibindo passos de uma trilha específica.
+- Desenvolvimento visual conforme o design fornecido no Figma, utilizando React e TailwindCSS.
+- Configuração do banco de dados Neo4j, criando nós e estabelecendo relações.
+- Adição de funcionalidade para criar um novo passo e adicioná-lo ao banco de dados.
+- Adição de funcionalidade para criar uma nova trilha, caso a trilha que o usuário tentar acessar não exista no banco.
